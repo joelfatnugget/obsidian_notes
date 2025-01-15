@@ -150,9 +150,11 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {},
+              "state": {
+                "file": "1 - Full Notes/(b) - Coding/🛠️ CS461 - Mobile & Pervasive Computing and Applications.md"
+              },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of 🛠️ CS461 - Mobile & Pervasive Computing and Applications"
             }
           },
           {
@@ -170,7 +172,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -185,24 +187,26 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "fc5d77e21523fefb",
+  "active": "e776893507ae3356",
   "lastOpenFiles": [
+    "Obsidian Tips & Tricks.md",
+    "1 - Full Notes/(b) - Coding/🛠️ CS461 - Mobile & Pervasive Computing and Applications.md",
+    "unit1-pathway3-activity4-section5-c1e6c40e30136af2.gif",
+    "unit1-pathway3-activity4-section5-df69881d07b064d0.gif",
+    "Pasted image 20250115134309.png",
+    "Pasted image 20250115134238.png",
     "Pasted image 20250115132015.png",
     "Pasted image 20250115131840.png",
     "README.md",
     "1 - Full Notes/(b) - Coding/📓 CS462 - Internet of Things Technology and Applications.md",
     "2025-01-15.md",
     "Untitled.canvas",
-    "1 - Full Notes/(b) - Coding/🛠️ CS461 - Mobile & Pervasive Computing and Applications.md",
-    "Obsidian Tips & Tricks.md",
     "1 - Full Notes/(a) - Church/Cell Group - Definition and Purpose.md",
     "Screenshot 2025-01-15 at 12.28.50.png",
     "Files and Audio/Screenshot 2025-01-15 at 12.24.36.png",
     "Files and Audio/Pasted image 20250113162842.png",
     "Untitled.md",
     "Files and Audio/Pasted image 20250113163953.png",
-    "Files and Audio/Pasted image 20250113163006.png",
-    "Files and Audio/Pasted image 20250113161918.png",
     "1 - Full Notes/(b) - Coding/Threading in Programming.md",
     "1 - Full Notes/(b) - Coding/Untitled.md",
     "0 - Template/Full Notes.md",
@@ -211,7 +215,6 @@
     "1 - Full Notes/(a) - Church/Cultivating your Inner Life - Edmund Chan.md",
     "6 - Full Notes/Coding/Untitled 1.md",
     "📓 Daily Notes.md",
-    "Files and Audio/Process vs Thread.png",
     "Files and Audio",
     "1 - Rough Notes/2025-01-13.md"
   ]

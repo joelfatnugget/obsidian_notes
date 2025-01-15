@@ -161,7 +161,7 @@ fun main(){
     
 - Use the `+` symbol to concatenate strings together. You can also concatenate variables of other data types like `Int` and `Boolean` to `String`.
 ---
-### Returning a value from a function
+## Returning a value from a function
 ![[Pasted image 20250113162842.png]]
 By default if you don’t specify a return type, the default return type is ``Unit``.
 - `Unit` means that the function does not return a value. It is equivalent to `void` in other languages (Java) and `None` in Python
@@ -286,7 +286,7 @@ Row(
 )
 ```
 
-
+---
 
 #### Adding Images to the project
 Jetpack Compose can access the resources defined in the Android Project.
@@ -298,11 +298,79 @@ val image = painterResource(R.drawable.androidparty)
 ```
 *Remember to import the function*
 
-
+Don’t forget about Accessibility
+1. A content description defines the purpose of a UI Element!
+	1. This is important for the applications that use TalkBack
+	2. If the image is just purely decorative, then remember to insert `contentDescription = null`
 
 ---
+### Box Layout
+- Use box layout to stack elements on top of one another. Similar to that of [[Z-index]] in CSS or Web Dev!
+```
+@Composable
+fun GreetingImage(meesage: String, from: String, modifier: Modifier = Modifier){
+	val image = painterResource(R.drawable.androidparty)
+	Box(modifier){
+		Image(
+			painter = image,
+			contentDescription = null
+			contentScale = ContentScale.Crop // Scale image uniformly to maintain the aspect ratio
+			alpha = 0.5F
+			)
+			GreetingText(
+				message = message,
+				from = from,
+				modifier = Modifier
+				.fillMaxSize() // This will fill up the entire screen
+				.padding(8.dp)
+			)
+		}
+}
+```
+
+
+#### Layout Modifier
+- Modifier are used to decorate UI elements
+- I.e. Add backgrounds, padding or behavior to rows, text or buttons
+- You need to set the composable or a layout to accept modifier as parameters
+- To set children’s position within a `Row`, set the `horizontalArrangement` and `verticalAlignment` arguments. For a `Column`, set the `verticalArrangement` and `horizontalAlignment`
+- Note that `verticalAlignment` ≠ `verticalArrangement`
+![[unit1-pathway3-activity4-section5-df69881d07b064d0.gif]]
+
+In Column, you have `EqualWeight`, `Space Between`,`Space Around`, `Space Evenly`,`Top`,`Center`,`Bottom`
+
+
+![[unit1-pathway3-activity4-section5-c1e6c40e30136af2.gif]]
+---
+
 #### Clean Code #1
 >[!important] Keep your imports listed alphabetically and remove unused imports.
+
+>[!tip] : Be careful of Translation!
+- String data type is a sequence of Characters
+- Do not hardcode strings, it makes it harder to translate the application. You can extract the strings into a resource file
+	- Think of it as a book of variables that contains the String values to these variables
+- `Extract string resource` in order to get the Extract Resource Dialogue
+```
+<resources>
+    <string name="app_name">Happy Birthday</string>
+    <string name="happy_birthday_text">Happy Birthday Sam!</string>
+    <string name="signature_text">From Emma</string>
+</resources>
+```
+
+```
+@Preview(showBackground = true)
+@Composable
+fun BirthdayCardPreview() {
+    HappyBirthdayTheme {
+        GreetingImage(
+            message = stringResource(R.string.happy_birthday_text),
+            from = stringResource(R.string.signature_text)
+        )
+    }
+```
+
 
 ---
 ## Conclusion
