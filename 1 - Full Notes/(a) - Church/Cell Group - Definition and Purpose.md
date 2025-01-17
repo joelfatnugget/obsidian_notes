@@ -10,6 +10,15 @@
 
 > [!IMPORTANT] What is the purpose of Small Group?
 
+Small groups aren’t about helping me feel part of things, or helping me to connect with people, or even expressing my commitment to church. In fact, they are not really about me at all. The reason to go to a small group is that _**God has called me to love you and be an agent of your growth in Christ**._ I go because you need me to speak the Word of Christ to you (and because I need to hear it from you).
+
+The reason God calls us together in community is so that the Word of Christ can dwell richly in our midst and grow us to be like him. This happens as we love each other by patiently, kindly and humbly speaking that word to each other in any way we can.
+The passage mentions a number of ways we can do this—it speaks of teaching and admonishing and singing and giving thanks. We could easily flesh that list out with other speaking verbs like reminding, encouraging, exhorting, discussing, chewing over, and asking-the-kind-of-dumb-but-obvious-question-that-helps-everyone.
+Whatever mode of speech is involved, the content is ‘the Word of Christ’ and the purpose is to help one another grow to be like Christ.
+
+Some days you want to receive from the Cell groups, and you need to receive. But on those days that you don’t necessary need to receive, are you able to give? Cuz there might be someone else out there who needs to receive on that particular day. 
+
+
 The purpose ties in very closely to how the idea of Small Groups were being formed. Any thoughts on how Small Groups were formed?
 1. Acts 2:42-47
 ### The Fellowship of the Believers
@@ -41,12 +50,15 @@ Any idea why they were called the Holy Club?
 - They were reaching out to prisoneres, helping the poor and providing education for local children. 
 - You can see it as a continuation of the derogatory term called “Methodist”
 - It wasn’t something that they came up with, but rather it was bestowed upon them
+Spend some time reading the questions!
 - They would also cover 22 questions of John Wesley’s Holy Club
 	- Notice this. The 22 questions revolved around deep sharing about your own personal spiritual growth. To be able to confess your sins to one another. 
 	- Accountability to one another
 	- Commitment to grow his own spiritual life.
 
 So if you see how John Wesley conducted his Holy Club session, it was very methodical and yet very soul searching and invigorating. You really needed to dig deep and engage with the topic and the questions at hand. It’s quite uncomfortable to be honest.
+
+“I am not afraid that the people called Methodists should ever cease to exist either in Europe or America. But I am afraid lest they should only exist as a dead sect, having the form of religion without the power. And this undoubtedly will be the case unless they hold fast both the doctrine, spirit, and discipline with which they first set out.”
 
 ---
 ### Expectation of a Cell Group
@@ -67,7 +79,9 @@ What will be different:
 - Those leading ur YAM cell. You are not expected to always be better than the rest. See leadership as more of a administrative and facilitation role. Yes you have some authority also in the sense of reporting to the church. But never abuse it.
 - Authenticity, it means as you go through CG, see your leaders as humans trying to figure it out in this world too. They are not perfect. Accept that they are going to be authentic and welcome it. 
 - Move into taking ownership of your own journey and your own faith. Bring in your own lessons and teach others! If everyone can do that, your Cell Session will flourish. 
-- 
+- Discipleship will look very different from Discipleship in the future
+- You most probably won’t be able to have a top down approach, so No shepherds teaching. Not Vertical 
+- But horizontal approach, doing life together. Journeying together.
 
 
 2025-01-15 11:37
