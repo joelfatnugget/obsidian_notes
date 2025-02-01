@@ -26,5 +26,7 @@ if(str1 == str2){
 ```
 This will return `false` because the New keyword is inside, so it will pull from the String pool but different locations.
 
+In terms of checking for values… you can think of JDK as having a Cache-ing system. Instead it is called a buffer and it will check the buffer instead of checking the hard drive.
+
 ## References
 

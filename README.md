@@ -15,6 +15,7 @@
 - [[🎯 Goals & Vision]]
 - [[📖 Book Notes]]
 - [[💡 Ideas & Inspiration]]
+- 
 
 ---
 
