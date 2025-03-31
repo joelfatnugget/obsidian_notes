@@ -13,58 +13,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "Books on NLB Website.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "Books on NLB Website"
             }
           },
           {
-            "id": "1c605dbec2167819",
+            "id": "ada8f5f27d83d6c5",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "1 - Full Notes/(c) - Books/Designing Data-Intensive Applications.md",
+                "file": "The Phoenix Project.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Designing Data-Intensive Applications"
-            }
-          },
-          {
-            "id": "e57d0aeeb90449f8",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "1 - Full Notes/(b) - Coding/Passkeys.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Passkeys"
-            }
-          },
-          {
-            "id": "da2d97fd9c0a1075",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "1 - Full Notes/(b) - Coding/LeetCode/README - Leetcode.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "README - Leetcode"
+              "title": "The Phoenix Project"
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -83,7 +55,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "alphabetical",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -95,10 +68,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "1 - Full Notes/(b) - Coding/🛠️ CS461 - Mobile & Pervasive Computing and Applications.md"
+                "file": "Leetcode.md",
+                "followCursor": false,
+                "showSearch": true,
+                "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 🛠️ CS461 - Mobile & Pervasive Computing and Applications"
+              "title": "Outline of Leetcode"
             }
           },
           {
@@ -197,12 +173,11 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -216,46 +191,48 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "da2d97fd9c0a1075",
+  "active": "ada8f5f27d83d6c5",
   "lastOpenFiles": [
+    "The Phoenix Project.md",
+    "Books on NLB Website.md",
+    "Coding Interview Questions on Conceptual Understanding.md",
     "README.md",
+    "Soft Skills Software Developer Life Manual.md",
+    "VIM Bindings.md",
+    "Websites that are interesting.md",
+    "Obsidian Tips & Tricks.md",
+    "Files and Audio/Screenshot 2025-02-14 at 13.27.39.png",
+    "1 - Full Notes/(b) - Coding/🛠️ CS461 - Mobile & Pervasive Computing and Applications.md",
+    "Leetcode.md",
+    "1 - Full Notes/(b) - Coding/📓 CS462 - Internet of Things Technology and Applications.md",
+    "1 - Full Notes/(b) - Coding/Threading in Programming.md",
+    "1 - Full Notes/(b) - Coding/Dependency Injection.md",
+    "1 - Full Notes/(b) - Coding/Java - IS442 Notes.md",
+    "1 - Full Notes/(b) - Coding/LeetCode/Stacks.md",
+    "1 - Full Notes/(b) - Coding/LeetCode/Array.md",
     "1 - Full Notes/(b) - Coding/LeetCode/README - Leetcode.md",
+    "Files and Audio/Pasted image 20250210142528.png",
+    "Files and Audio/Pasted image 20250210100441.png",
+    "Files and Audio/Screenshot 2025-02-03 at 15.45.42.png",
+    "Files and Audio/Screenshot 2025-02-03 at 15.29.32.png",
+    "2025-01-27.md",
     "1 - Full Notes/(b) - Coding/Passkeys.md",
     "1 - Full Notes/(b) - Coding/LeetCode",
     "1 - Full Notes/(c) - Books/Designing Data-Intensive Applications.md",
     "Untitled 1.md",
-    "1 - Full Notes/(b) - Coding/🛠️ CS461 - Mobile & Pervasive Computing and Applications.md",
-    "Obsidian Tips & Tricks.md",
     "1 - Full Notes/(a) - Church/Church Series - Revelation/Revelation - Overview Cell Session 1.md",
-    "2025-01-27.md",
     "Untitled.canvas",
     "1 - Full Notes/(c) - Books/Mastering Bitcoin - Andreas M. Antonopoulos.md",
     "1 - Full Notes/(a) - Church/Church Series - Revelation",
     "Files and Audio/Screenshot 2025-01-17 at 13.08.00.png",
     "Files and Audio/Screenshot 2025-01-17 at 13.14.23.png",
     "1 - Full Notes/(c) - Books",
-    "1 - Full Notes/(b) - Coding/Java - IS442 Notes.md",
     "2025-01-15.md",
     "🎯 Goals & Vision.md",
     "1 - Full Notes/(a) - Church/Cell Group - Definition and Purpose.md",
-    "1 - Full Notes/(a) - Church/The Other Half of Church.md",
-    "1 - Full Notes/(a) - Church/Released for Missions, The Evangelistic Power of Small Groups.md",
-    "1 - Full Notes/(a) - Church/Cultivating your Inner Life - Edmund Chan.md",
-    "1 - Full Notes/(b) - Coding/📓 CS462 - Internet of Things Technology and Applications.md",
     "Files and Audio/Screenshot 2025-01-15 at 12.28.50.png",
     "Files and Audio/unit1-pathway3-activity4-section5-df69881d07b064d0.gif",
     "Files and Audio/Pasted image 20250115134309.png",
-    "Files and Audio/unit1-pathway3-activity4-section5-c1e6c40e30136af2.gif",
-    "Files and Audio/Screenshot 2025-01-15 at 12.24.36.png",
-    "Files and Audio/Pasted image 20250115134238.png",
-    "Files and Audio/Pasted image 20250115132015.png",
-    "Files and Audio/Pasted image 20250115131840.png",
-    "1 - Full Notes/(b) - Coding/Threading in Programming.md",
-    "1 - Full Notes/(b) - Coding/Untitled.md",
-    "0 - Template/Full Notes.md",
-    "6 - Full Notes/Coding/Untitled 1.md",
-    "📓 Daily Notes.md",
-    "Files and Audio",
-    "1 - Rough Notes/2025-01-13.md"
+    "Files and Audio"
   ]
 }

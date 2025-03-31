@@ -15,3 +15,264 @@
 
 #### Applications
 **Connected Cars**: Vehicles equipped with sensors that can collect data in multiple ways. – Through Dashcam or infotainment systems
+
+
+---
+### Week 4: Connectivity: MQTT
+MQTT is a lightweight, publisher-subscriber protocol for sending messages. Think of it as a sender and receiver, but I have 1 sender and multiple receivers. 
+>[!important] 
+>Reliable communication over unreliable channels
+- These devices need to be low-bandwidth, high-latency or unreliable networks to make it ideal for IoT applications
+- Ideally it should persist and ensure some form of data reliability
+- MQTT is an application layer protocol, it stays in the top of the transport layer. 
+	- Recall the OSI 7 Layers
+		- Application
+		- Presentation
+		- Session
+		- Transport
+		- Network
+		- Data Link
+		- Physical
+- It uses TCP as the transport layer. Remember TCP vs UDP
+	- TCP: Transmission Control Protocol → Connection-based protocol
+	- UDP: User Datagram Protocol → Connectionless
+- The protocol uses a small header (recall [[WAD2]]) and transmits data in a compact binary format, reducing network usage. [[API]]
+- It maintains persistent connections, thereby reducing the time and power required to send messages. (Always on standby and connected. Requires more power to disconnect and then connect again)
+
+
+**Characteristic of MQTT**
+1. Binary
+	1. This helps to ensure fast and lower runtime cost. Think of it whereby because it is binary, it is build for machines to read, not humans. Thereby reducing the input cost needed.
+2. Efficiency
+	- Build around maximum efficiency, smallest MQTT packet has 2 bytes
+	- It’s really efficient
+3. Bi-directional
+	- If you have connection from your device to your cloud, you can send send data both directions, from device to cloud. And from Cloud to device
+4. Data-agnostic
+	- This means the protocol does not care about what you are sending, you can send XML, JSON files 
+	- Recall Docker and how [[Docker]] is *platform agnostic*
+5. Scalable
+	- Build upon push communications which means you have the lowest latency, it will also push data to all the devices. 
+6. Suitable for constrained devices
+	- Means for edge devices 
+All of these are build upon TCP. MQTT requires TCP/IP
+MQTT > TCP > IP (Lowest Level)
+
+MQTT uses persistent TCP connections
+
+MQTT uses a heartbeat mechanism, so even if TCP connection breaks 
+
+MQTT uses TLS – Security over TCP (TLS > TCP ) – Encrypted state
+
+A central broker manages the network. Subscribers connect to this broker and can subscribe to topics. When a publisher publishes a message on a topic, the broker will forward the message to all subscribers subscribed to that topic. 
+
+MQTT supports 3 quality of Service levels, allowing developers to balance between data reliability and network bandwidth. 
+
+#### Important Publish/Subscribe Pattern
+Publish/Subscriber pattern gives another alternative to traditional client-server architectures. In client-server model, the client communicates directly with an endpoint, the server. But in this case, we are not using a publish/subscribe pattern. 
+
+The Publish Subscriber never contact each other directly, all connection actually goes through a third component (the broker). The job of the broker is to filter all incoming messages and distribute them correctly to subscribers. 
+
+The most important aspect of pub/sub is the fact that it helps to decouple the publisher of the message from the subscriber. 
+- **Space decoupling**: Publisher and Subscriber do not need to know each other. Not even the IP addresses nor the port numbers
+- **Time Decoupling**: Publisher and Subscriber do not need to run concurrently. 
+- **Synchronisation Decoupling:** Publishers can carry on with other tasks right after publishing; they don’t need to wait for subscribers to receive their messages. Subscribers will be notified when the messages arrives.
+
+Examples of a broker: Mosquitto (Open source), EMQ X, HiveMQ
+This is very similar to what is covered in [[Enterprise Solutions Development - ESD ]]
+#### Message Filtering
+- Under the publish/subscribe model, the broker is responsible for ensuring that each subscriber receives only messages of interest. 
+- 3 Different types of Filtering
+	- **Topic Based Filtering**: Subscribes to broker for topics of interests. Topics are strings with hierachical structure
+	- **Content-Based filter**: Think of specific content filtering. Receiving clients subscribe to filter queries of messages for which they are interested. Downside is that content of messages must be known before hand, and it cannot be encrypted
+	- **Type-based filtering**: based on the type of a message. I.e. Subscriber can listen to all messages which are of type Exception or any sub-type
+- MQTT uses **topic-based filtering!** Always focus on topic-based filtering
+
+
+#### Roles
+##### MQTT Client
+A client is any device that runs an MQTT library, it connects to MQTT broker over a network. It can be a publisher, subscriber or both. If it is a publisher, it means it is publishing messages. and if it’s a subscriber, it means it is subscribed to one or more topics.
+
+#### MQTT Broker
+The broker is at the heart of any publish/sub protocol. Brokers are designed to handle up to millions of concurrently connected MQTT clients. Remember 1 publisher… a million subscribers
+
+The broker will brainpower to the whole thing. The broker is responsible for receiving all messages, filtering the messages and determining who is subscribe to each message, and sending the message to these subscribed clients.
+
+Another responsibility of the broker is the authentication and authorisation of clients. Another feature is that the brokers must be integratable into the various systems. Integration is critical because the broker is frequently the component being exposed on the internet, it handles a lot of clients and needs to pass messages to downstream analysis and processing system.
+
+Every message MUST pass through the Broker. 
+
+Downside to MQTT Broker: It is a single point of failure in the MQTT-Based system. Therefore it is important that the broker is highly scalable, integratable into backend systems, easy to monitor and failure-resistant. 
+
+You need to fortify your entire MQTT Broker.
+
+### Operations
+##### Connect/Disconnect
+1. MQTT connections is always between 1 client and the broker. Clients never connect to each other. It initiated with a CONNECT and the broker will reply with a CONNACK.
+2. Broker uses Client ID to identify the client and the current state of the clinet. This ID should be unique per client/broker pair.
+3. Once connection is established, it is kept open until either the client or the broker sends a disconnect message.
+*Question:* Can a client connect to more than 1 broker?
+
+#### Publish
+
+
+
+### MQTT Communication Patterns
+1. Point-to-Point
+2. Broadcast
+3. Fan-In (interesting… it’s not fan-out as with ESD)
+##### Point-to-Point
+- Two devices use a single MQTT topic as the communication channel. A device publishes to a MQTT topic. Another device subscribes to that same topic
+- Example: A room occupancy device publishes a message on a topic; digital display outside the room subscribes to that same topic
+- P2P communication is not limited to one-to-one communication between devices. 
+	- 1 Publisher can publish to multiple individual subscribers using 1 different MQTT topic per subscriber
+- Approach is common in notification scenarios where admin sends distinct updates to specific devices. Repair services uses P2P communications to programmatically loop through the list of appliances and publish a message
+
+#### Broadcast
+- Used for one to many messaging. The broadcast pattern sends the same message to a large fleet of devices. Multiple Devices subscribe to the same MQTT Topic, the sender publishes a message to that topic
+- Similar to P2P, 1 to Many pattern. Only that in Broadcast pattern, the same message is sent to all devices.
+- I.e. Weather station emitting broadcast message to a topic based on its geolocation
+
+#### Fan-In 
+The fan-in pattern is many to 1 pattern. think of it as the reverse of the broadcast pattern.
+- Multiple devices publish on a topic. The topic has only 1 single subscriber. With the fan-in pattern, the subscriber may use wildcards, as the publishers all use similar but unique MQTT topic. 
+- Instead of having multiple Subscribers, you have 1 single subscriber but multiple topics
+
+### Quality of Service
+QoS is an agreement between the sender of a message and the receiver of the message that defines the guarantee delivery of a specific message. 3 Levels in QoS in MQTT
+1. QoS 0 - At most once: Performs a best-effort delivery. No guarantee of delivery. The recipient does not acknowledge receipt of the message and the message is not stored and re-transmitted. think of it as “**FIRE AND FORGET**”
+2. QoS 1 - At least once. Guarantees the message is delivered at least one time to the receiver. Sender stores the message until it gets a PUBACK packet from the receiver that acknowledges receipt of the message.
+3. QoS 2 - Exactly once: Guarantees that each message is received only once by the intended recipients. QoS is safest and slowest quality of service level. The guarantee provies at least 2 request/response flows between the sender and receiver.
+
+In terms of message delivery it will always be the lower Quality of Service. For example, Subscriber chose QoS 0, Publisher chose QoS 1… Broker will use QoS 0. 
+
+Remember it will always default to the lowest level amongst the 2.
+
+
+#### Retained Messages
+- MQTT message includes a retained flag. It is a boolean variable. If it is true, the broker will then store that message as a retained message. 
+- Every topic can only have 1 retained message. If the publisher sends another retained message, it will overwrite and replace the older retained message. 
+
+
+
+### Week 9: Connectivity: LoRaWAN
+Content: 
+1. LoRa & LoRaWAN
+	1. Usage, Benefits, shortcoming, Government restrictions, Terminology
+2. LoRaWAN & LoRaWAN Topology *Network Reference Model*
+3. Message Types
+4. LoRaWAN Operating Modes
+5. Relays
+
+
+
+#### Radio Frequency Basics
+- Operating Frequency occurs when 2 devices communicate using radio waves, they must use the same radio frequency to be able to exchange data with each other. They usually can communicate with different multiple frequencies within a range of frequencies rather than just 1 frequency alone. 
+- Wifi 7  – communicate at 6Hz but it doesn’t mean that all devices use a frequency of 6.000 GHz exactly. 
+		- Channel 1: 5.955 - 5.975 Ghz
+		- Channel 5: 5.975 - 6.035 GHz
+		- Channel 15: 5.955 - 6.275 GHz
+- Signal Bandwidth: Difference of the bandwidth of the signal is the difference between the maximum and minimum frequencies present in a signal. Bandwidth does not mean the same thing as data rate. 
+- In general Higher Bandwidth = Higher Data Rate. Higher Bandwidth means that more data can be transmitted simultaneously, resulting in a higher data rate. Think of it as a wider channel, hence wider roads, hence more cars can pass through at any given time.
+- Higher Frequency = Lower Range. This means that they are more susceptible to obstacles, attenuation, and interference. They lose more power quickly over distance, reducing their effective communication range.
+
+#### LoRa
+Lora is a physical layer modulation technique for wireless, long range networks. It works because it is robust against interference, and can be received at long range. LoRa uses Chirp Spread Spectrum technology to encode information on radio waves using chirp pulses. A pulse is a signal in which the frequency changes over time. 
+
+
+- Up-chirp: frequency increases over time
+    
+- Down-chirp: frequency decreases over time
+    
+- Linear chirp: frequency increases linearly over time
+    
+- A LoRa sender encodes data into a series of linear chirps, sends the chirp signals to a LoRa receiver, which then decodes the chirps back into data.
+
+Spreading Factor is the rate of change of frequency
+- High Spreading Factor means frequency changes slowly while Low Spreading factor means the frequency changes quickly
+
+#### Duty Cycles
+- Airtime:Airtime is the amount of time a LoRa device spends transmitting data
+- Duty Cycle: Duty cycle is the fraction of time a LoRa device transmits
+- When a device transmit for 1s every 100s the device has an airtime of 1s every transmission… aka duty cycle of 1%
+- When multiple devices transmit data, they cause interference. Hence, governments set restriction on the amount of time that certain radio devices can transmit. This is important to reduce the amount of interference and ensure every device gets a fair amount of airtime.
+- The duty Cycle of LoRa devices are commonly set to 1%
+
+#### LoRaWAN
+Open Global Standard
+LoRaWAN is a Media Access Control (MAC) Layer Protocol that is built on top of LoRa Modulation. It is a software that defines how devices use LoRa hardware, can think of it as a industry standard for communication and sending/receiving messages. It is designed to wirelessly connect battery-powered Things to the Internet. It meets key IoT devices needs such as bi-directional Communication, end-to-end security, mobility and localisation.
+- Offers data rates of 50kbps. All messages between end-devices and gateways include a variable Data Rate setting.
+
+- Operates in sub-Ghz Frequency range: 433 MHz, 868 MHz and 920 MHz
+- Offers data rates of up to 50 kbps. All messages between end-devices and gateways include a variable Data Rate setting. 
+- **Adaptive Data Rate**: Allows us to maximise both battery life of the end-devices as well as achieve overall network capacity. LoRaWAN network server manages the spreading factor, bandwidth and the transmission power for each end-device individually by means of an Adaptive Data Rate scheme. End devices can decide whether they want to enable Adaptive Data Rate or not. The network server helps them decide the optimized settings. 
+- maximum payload of LoRaWAN packets is ~200 bytes, although this varies based on geographical region. In some parts of the world, maximum on-air transmission time allowed is restricted and payload could be as low as 11 bytes. 
+
+Selection of the data rate allows a dynamic trade-off between communication range and message duration. Due to the use of spread spectrum technology, communications with different data rates do not interfere with each other.
+
+- AES algorithms are also used to provide authentication and integrity of packets to the network server and end-to-end encryption to the application server. 
+2 Layers of Cryptography
+6. 128-bit network session key (Shared between end-device and network server)
+7. 128-bit application session key (Shared between end-to-end at application level)
+
+- By having these 2 layers, it is possible to implement a multi-tenanted shared networks without the network operator having visibility of the users data. 
+
+LoRaWAN networks are deployed in a star-of-stars topology. Gateways relay messages between end-devices and a central network server. 
+
+Gateways
+8. Relay messages between end-devices and the central network server
+9. Gateways are connected to the network server via the internet. They can operate on many frequencies at the same time
+
+Wireless communication takes advantage of the long range characteristic of the LoRa physical layers, allowing a single hop link between end device and 1 or many gateways.
+It is possible to use a relay to make the end-device to the gateway a double-hop link: end-device → Relay → Gateway
+
+#### LoRaWAN Network Reference Model
+(Need to spend more time to understand)
+
+
+
+
+#### Message Types
+There are two types of messages in LoRa
+1. Uplink
+2. Downlink 
+
+**Uplink**: End devices → Gateways → Network Server → Internet
+**Uplink messages**: Generated by the end-devices, they will be sent to the internet, and are usually meant for the application server. Message will be processed by any gateway that is within range, message is then forwarded by all of those gateways to the Network Server. Deduplication is done at the network server.
+
+**Downlink**: Internet → Network Server → Gateway → End-Device
+**Downlink Messages**: Sent from internet to the end-device. If End-device is not ready, Network will buffer all the messages on behalf of the end-device. Then when end-device is ready, then it will send the messages via a gateway. Downlink messages are forwarded by only a single gateway to end-devices
+(Question: Does the application server keep pinging the end-device? How does it know when the end-device is ready?)
+<span style="color:rgb(255, 0, 0)">Answer: Downlink Communication must be buffered at the network server first. Until the end-device is ready then it will send an uplink trasnmission. The server can only send data to the end-device after the end-device sends an uplink Transmission</span>
+<span style="color:rgb(0, 176, 80)">Think of it as the End-Device needs to latch on first before it can start to receive.</span>
+
+#### LoRaWAN operating Modes
+- Class A, B , C (Figure out whether you need speed or not. Faster speed = Higher Power Consumption)
+	- Class A: highest Latency, Lowest Power Consumption
+	- Class C: Lowest Latency, Highest Power Consumption
+- When devices are turned on, they are usually in Class A. Only after joining that they will operate in Class B or C
+- End-Devices follow this general operating pattern with some variations. Sleep → Transmit → Receive → Sleep
+- When an end-device has data to send, it:
+- Transmits the data
+- Waits for a short delay, to allow the network server to process the data. This delay is 1s by default
+- Waits for a short period called a receive window. During this receive window, if it receives data, it will process the data.
+- Waits for another short delay. This time, it is to allow the end-device to process the received data, if any
+- Waits for another short period, the 2nd receive window. During this receive window, if it receives data, it will process the data.
+- During these 2 receive windows, the Network Server might send it data, if any.
+
+Class B: 
+
+Class C:
+
+
+
+#### Relays:
+To extend the range of end-devices, we can deploy the usage of a relay between the end-device and the gateways.
+- Relay –> LoRaWAN device that could be battery-powered. Can transfer LoRaWAN frames between an end-device and a LoRaWAN network in both directions.
+- When end-device wants to send a LoRaWAN data Frame via a relay, it first sends a **Wake  On Radio (WOR)** frame to the relay. It is meant to wake the Relay and communicate information about the data frame.
+- Preamble: In wireless networking, sender first sends a preamble before sending the actual data. Purpose is to alert receivers that the sender wants to send data, and receivers should prepare to receive the data.
+	- Receiver might 
+		1. Switch on Radio, if Preamble was detected, stay awake. Else switch off and stop listening for 5s 
+- Main characteristic is its preamble size, which can be up to 1 second. This long Preamble allows the relay to sleep and only wake up periodically to scan for preambles. Action is called a channel scan. 
+- If its a valid WOR frame, the relay may reply with a WOR Ack frame. This means that the relay is up and that the WOR Frame has been received. The end-device is now ready to send its LoRaWAN uplink data frame. This DF will then be received and forwarded to the network server.
+- If relay mode is enabled, the end-device should add a new reception Window to receive forwarded downlinks from the relay. 

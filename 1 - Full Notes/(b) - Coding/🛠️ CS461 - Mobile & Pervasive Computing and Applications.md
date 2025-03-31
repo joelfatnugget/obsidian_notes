@@ -1,5 +1,38 @@
 Mainly writing in [[Kotlin]]
 Kotlin uses camelCase
+
+**Revision - Unit 1**
+- How to write and run a simple Kotlin Program
+- How to modify a simple program to change the output
+- How to define a variable and update its value
+- Appropriate Data type for a variable from the basic data types in Kotlin.
+- How to add comments to code
+-  How to define and call your own functions.
+- How to return values from a function that you can store in a variable.
+- How to define and call functions with multiple parameters.
+- How to call functions with named arguments.
+- How to set default values for function parameters.
+- How to define and call your own functions.
+- How to return values from a function that you can store in a variable.
+- How to define and call functions with multiple parameters.
+- How to call functions with named arguments.
+- How to set default values for function parameters.
+Unit 1 Pathway 1 completed
+Unit 1 Pathway 2 – Not important, just about how to get the android studio to work
+Unit 1 Pathway 3 – Learning about layout of phone
+- What is a composable function
+- What are annotations? 
+- How to write composable functions, such as Text, Column and Row composable functions.
+- How to display text in your app in a layout.
+- How to format the text, such as changing text size.
+- How to add an image or photo to your Android app.
+- How to display an image in your app with an Image composable.
+- Best practices using `String` resources.
+- How to build simple layouts with Row and Column composables, and arrange them with horizontalAlignment and verticalArrangement parameters.
+- How to customize Compose elements with a Modifier object.
+
+
+
 ## Chapter 1
 Function in Kotlin begins with `fun` keyword
 The `fun` keyword is followed by the function name, inputs and curly braces. Similar to what is covered in Java or Python
@@ -672,3 +705,441 @@ val amount = amountInput.toDoubleOrNull() ?: 0.0
 ```
 
 - `toDoubleOrNull()` is a predefined Kotlin function that parses a string as a `Double` number and returns the result. If the string isn’t a valid representation of a number. The `?:` operator returns `0.0`
+----
+### Unit 3 Pathway 1 Activity 2: Generics, Objects, Extensions
+#### Make a reusable class with generics
+
+What is a generic Data type?
+1. Generic Types allow for a data type, to specify an unknown placeholder data. 
+	- It can be used with its properties and methods. 
+![[Pasted image 20250210100441.png]]
+Notice it is a class with the various properties such as a class name, a generic data type and it’s properties.
+
+>[!note] 
+>There is a generic type named `T` or other capital letters if the class has multiple generic types.
+
+To create the class you use:
+```
+class Question<T>{
+	val questionText: String,
+	val answer: T,
+	val difficulty: String
+}
+```
+
+Then in order to call the instance of it you have to use
+```
+fun main(){
+	val question1 = Question<String>("Type your reply here", "nevermind", "easy")
+	val question2 = Question<Boolean>("Is that true?", false , "hard")
+	val question3 = Question<Int>("How old are you?", 20 , "hard")
+}
+```
+
+#### Using an enum class
+enum here works differently from the normal enum class in say python
+enum here is used to create types with a limited set of possible values. 
+
+each possible value of an enum is called an **enum constant**
+Refer to the enum constant using the `.` operator
+
+For example:
+```
+enum class Difficulty{
+	EASY,MEDIUM,HARD
+}
+```
+
+then in your `Question` class, change the data type of difficulty from `String` to `Difficulty`
+```
+class Question<T>{
+	val questionText: String,
+	val answer: T,
+	val difficulty: Difficulty
+}
+```
+
+then in the instantiating phase:
+```
+val question1 = Question<String>("abadvasd","okay",Difficulty.MEDIUM)
+```
+
+–
+Currently the classes that we are working with are subclasses of `Activity`, but there is also another type of classes that don’t have any methods that performs an action. They are called `data class`
+
+A data class allows the compiler to make assumptions and to automatically implement some methods. I.e. `toString()` is called behind the scenes by the `println()` function
+
+>[!important]
+>- Data classes need to have at least 1 parameter in its' constructor
+>- All constructor parameters must be marked with a `val` or a `var`
+>  
+>  **data class cannot be abstract, open, sealed or inner**
+
+Think about the toString function in [[Java - IS442 Notes]]
+#### Convert `Question` to data class
+It’s as simple as just putting a `data` keyword in front of the function
+```
+data class Question<T> {
+	val questionText: String,
+	val answer: T,
+	val difficulty: Difficulty
+}
+```
+
+---
+#### Defining a Singleton Object
+```
+object StudentProgress{
+	var total: Int = 10
+	var answered: Int = 3
+}
+```
+
+For a singleton Object, all you need to do is to change out the `class` property with an `object` property. A singleton object cannot have a constructor as you can’t create instances directly. Hence, instead of that, all the properties are defined within the curly braces and are given an initial value.
+
+#### Accessing a Singleton Object
+Because there is only 1 instance of a singleton… Accessing it’s properties are simple.
+```
+fun main(){
+	println("${StudentProgress.answered} of ${StudentProgress.total} answered.")
+}
+```
+
+#### Declaring objects as a companion objects (New Concept)
+This refers to having a singleton object declared inside another class. One way of doing this is to use a **companion object.**
+- This allows you to access its properties and methods from inside the class
+i.e. You are putting a Singleton Object inside the class property. 
+>[!Question]
+>What is the benefit to this though?
+
+```
+class Quiz {
+	val question1 = Question<String>("Quoth the raven ___", "nevermore", Difficulty.MEDIUM)
+    val question2 = Question<Boolean>("The sky is green. True or false", false, Difficulty.EASY)
+    val question3 = Question<Int>("How many days are there between full moons?", 28, Difficulty.HARD)
+
+    object StudentProgress {
+		var total: Int = 10
+		var answered: Int = 3    }
+}
+```
+
+But instead of writing such a long code, you could just swap it out for a companion object.
+```
+class Quiz {
+    val question1 = Question<String>("Quoth the raven ___", "nevermore", Difficulty.MEDIUM)
+    val question2 = Question<Boolean>("The sky is green. True or false", false, Difficulty.EASY)
+    val question3 = Question<Int>("How many days are there between full moons?", 28, Difficulty.HARD)
+
+    companion object StudentProgress {        
+		var total: Int = 10
+        var answered: Int = 3
+    }
+}
+```
+
+---
+### Extension Function
+fun Quiz.StudentProgress.printProgressBar(){
+	repeat(Quiz.answered){ print(“▓”)}
+	repeat(Quiz.total - Quiz.answered) { print("▒") } // represents unanswered questions
+    println()
+    println(Quiz.progressText)
+}
+
+---
+#### What is an Interface
+- An interface is a contract. A class that conforms to an interface is said to extend the interface. 
+- The class MUST implement all properties and methods specified in the interface. This lets you easily ensure that any class that extends the interface will have the corresponding methods with the exact same method signature
+- If you modify the interface, you will need to update any class that extends the interface
+
+#### How to declare an interface
+```
+interface ProgressPrintable {
+	val progressText: String,
+	fun printProgressBar()
+}
+```
+
+#### How to  implement an interface with the Class?
+```
+Class Quiz: ProgressPrintable {
+	val question1 = Question<String>("Quoth the raven ___", "nevermore", Difficulty.MEDIUM)
+    val question2 = Question<Boolean>("The sky is green. True or false", false, Difficulty.EASY)
+    val question3 = Question<Int>("How many days are there between full moons?", 28, Difficulty.HARD)
+
+    // use ``override`` because this is from the ProgressPrintable interface
+    override val progressText: String
+        get() = "${answered} of ${total} answered"
+
+    // use ``override`` because this is from the ProgressPrintable interface
+    override fun printProgressBar() {
+        repeat(Quiz.answered) { print("▓") }
+        repeat(Quiz.total - Quiz.answered) { print("▒") }
+        println()
+        println(progressText)
+    }
+
+    companion object StudentProgress {
+        var total: Int = 10
+        var answered: Int = 3
+    }
+}
+```
+
+You need to override it. 
+
+
+#### Using `let()` to replace long object names
+```
+fun printQuiz() {
+    question1.let {
+        println(it.questionText)
+        println(it.answer)
+        println(it.difficulty)
+    }
+    println()
+    question2.let {
+        println(it.questionText)
+        println(it.answer)
+        println(it.difficulty)
+    }
+    println()
+    question3.let {
+        println(it.questionText)
+        println(it.answer)
+        println(it.difficulty)
+    }
+    println()
+}
+```
+
+```
+val quiz = Quiz()
+quiz.printQuiz()
+```
+
+This can be re-written as 
+
+```
+Quiz().apply{
+	printQuiz()
+}
+```
+
+---
+### Unit 3 Pathway 1 Activity 3: Use collections in Kotlin
+
+#### Introduction
+Collection Types aka **Data Structures** lets you store multiple values in an organised way.
+- Could be an ordered list, a group or a mapping of values of one data type to another
+- There’s 2 different sets, a Mutable Collection types or an immutable collection types
+
+#### Arrays
+To declare an array
+```
+val rockPlanets = arrayOf<String>("Mercury","Venus","Earth","Mars")
+```
+
+Kotlin actually uses type inference, so you don’t need to specify the type name
+>[!NOTE] 
+>You can concatenate Arrays together
+
+Arrays are not lists. Arrays have fixed sized. You cannot add elements to an array beyond this size. 
+
+#### List
+List on the other hand are ordered and resizable, usually implemented as a resizable array. When the array is filled to capacity, and you try to insert a new element, the array is copied to a bigger array.
+
+##### listOf() function
+listOf() takes in items as parameters and returns a List rather than an array.
+
+There is also something called the get() method. The get() method allows you to take an `Int` as a parameter and return the element at that index. 
+
+#### repeat() or for-loop
+You can use the repeat() function to execute code multiple lines
+another way is just a for-loop
+```
+for (planet in solarSystem){
+
+}
+```
+
+#### Adding to a list
+``` 
+solarSystem.add(3,"ABC") // This will add it at index 3
+
+solarSystem.add("Pluto") // This will add it to the back of the list
+```
+
+#### If you want to update
+solarSystem[3] = “Future Moon”
+
+#### Delete/Removal
+```
+solarSystem.removeAt(9)
+
+solarSystem.remove(“Future Moon”)
+```
+
+solarSystem.contains(“Pluto”)
+
+### Sets
+- Unable to have duplicate values and does not have a specific order
+- This is enabled by a **hash code**
+	- A Hash Code is an `Int` produced by the `hashCode()` method of any Kotlin class. 
+	- Think of it as a semi-unique identifier for a Kotlin Object. A small change to the object, such as adding one character to a `String` results in a vastly different hash value. 
+- Sets have 2 important properties
+	- Searching of a specific element is fast – Compared to List
+			- indexOf() of a `List` requires checking each element from the beginning until a match is found
+			- Sets tend to use more memory than lists for the same amount of data, since more array indices are often needed than the data in the set
+- Benefit of Sets is the uniqueness
+
+There’s both Set and MutableSet in Kotlin
+
+### Map Collection
+This is similar to a dictionary in Python but a Map in Java
+- Map Keys are unique, A Map values however are not. Remember that the identifiers for Maps are that of the keys
+- Accessing a value from a map by its key is generally faster than searching through a large list
+- Maps can be declared using the `mapOf()` or `mutableMapOf()` function.
+
+```
+val solarSystem = mutableMapOf(
+	"Mercury" to 0,
+	"Venus" to 1,
+	...
+```
+
+Like lists and sets, Map provides a size property. The other functions are similar to that of Python
+``solarSystem.remove(“Pluto”)``
+
+#### Conclusion
+- Arrays store ordered data of the same type, and have a fixed size.
+    
+- Arrays are used to implement many of the other collection types.
+    
+- Lists are a resizable, ordered collection.
+    
+- Sets are unordered collections and cannot contain duplicates.
+    
+- Maps work similarly to sets and store pairs of keys and values of the specified type.
+
+---
+### Higher-Order Functions with Collections
+#### Loop over a list with forEach()
+
+```
+fun main(){
+	cookies.forEach{
+		println(“Menu item: $it”)
+	}
+}
+```
+Notice how $it refers to the for each item. 
+
+- To Access properties and embed them in a string, you need an expression. 
+```
+cookies.forEach{
+	println("Menu item: ${it.name}")
+}
+```
+
+#### map() function
+map function allows you to transform a collection into a new collection with the same number of elements. map() could transform `List<Cookie>` into `List<String>`
+
+```
+val fullMenu = cookies.map {
+	"${it.name} - $${it.price}"
+}
+```
+The only reason why u need 2 ``$$`` for price is becuz you talking about price
+
+
+#### filter()
+filter function lets you create a subset of collection. If you had a list of numbers, you could use `filter()` to create a new list that only contains numbers divisible by 2
+
+map() will always get a collection of the same size, filter() will get a collection of same size or smaller. Additionally, filter() will always result in the same data type
+
+For each item in the collection: 
+- if the result of the lambda expression is true = It will be included in the new collection
+- if the result of the lambda expression is false = it will not be included in the new collection
+
+```
+val softBakedMenu = cookies.filter {
+    it.softBaked
+}
+```
+
+
+#### groupBy()
+![[Pasted image 20250210142528.png]]
+
+```
+val groupedMenu = cookies.groupBy { it.softBaked }
+val softBakedMenu = groupedMenu[true] ?: listOf()
+val crunchyMenu = groupedMenu[false] ?: listOf()
+```
+
+
+#### fold() function
+Takes in 2 aprameters, initial value… data type is inferred when calling the function
+Lambda expression that returns a value with the same type as initial value
+
+- The lambda expression has 2 additional parameters:
+	- Accumulator. Running total, everything the lambda expression is called, accumulator is equal to the return value from the previous time the lambda was called
+	- second parameter is the same type as each element in the collection
+```
+val totalPrice = cookies.fold(0.0) {total, cookie ->
+    total + cookie.price
+}
+```
+
+`fold()` is sometimes called `reduce()`. The `fold()` function in Kotlin works the same as the `reduce()` function found in JavaScript, Swift, Python, etc. Note that Kotlin also has its own function called `reduce()`, where the accumulator starts with the first element in the collection, rather than an initial value passed as an argument.
+
+
+#### sortedBy()
+this allows you to sort the various objects based on a comparator
+Think of Comparable operators in Java. 
+
+```
+val alphabeticalMenu = cookies.sortedBy {
+    it.name
+}
+```
+
+
+
+---
+#### Navigation
+
+----
+#### Week 9 - Concurrency, Asynchronous Code
+
+- Concurrency
+- Asynchronous code
+	- launch() – Don’t care about return result
+	- async() – Care about return result
+Coroutine = “cooperative” piece of Code
+Coroutine → Thread → CPU Core
+- Coroutine Concepts
+	- Job
+	- CoroutineScope
+		- Attached to MainActivity (LifeCycleScope)
+		- Attached to ViewModel (ViewModelScope)
+	- CoroutineContext
+	- Dispatcher
+		- Which thread to run the coroutine on? 
+		- Dispatcher.Main
+		- Dispatcher.IO
+		- Dispatcher.Default
+	- Dependency Injection 
+		- Multiple components that need other components… Using Dependency Injection 
+
+Structured concurrency – How you really want to structure your code. Think of it as a reporting structures! The guy at the top says cancel all the work, those at the bottom will also adhere
+
+The **SUSPENSE** modifier is used to mark a function whose execution can be suspended and resumed at a later point.
+
+
+
+Collect and CollectAsState
+
+CollectAsState converts it into a different object for you. 

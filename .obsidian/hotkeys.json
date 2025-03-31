@@ -6,5 +6,23 @@
       ],
       "key": "T"
     }
+  ],
+  "colored-text:color-text": [
+    {
+      "modifiers": [
+        "Ctrl",
+        "Shift"
+      ],
+      "key": "H"
+    }
+  ],
+  "colored-text:remove-color": [
+    {
+      "modifiers": [
+        "Ctrl",
+        "Shift"
+      ],
+      "key": "X"
+    }
   ]
 }
